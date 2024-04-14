@@ -14,6 +14,7 @@ public class Main {
         }
 
         for (Thread thread : threads) {
+            thread.setDaemon(true);
             thread.start();
         }
 
