@@ -4,8 +4,9 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) {
-        Thread thread = new Thread(new LongComputation(new BigInteger("2"), new BigInteger("10")));
+        Thread thread = new Thread(new LongComputation(new BigInteger("20000"), new BigInteger("1000000000")));
         thread.start();
+        thread.interrupt();
     }
 
     private static class BlockingTask implements Runnable {
@@ -38,6 +39,10 @@ public class Main {
         private BigInteger pow(BigInteger base, BigInteger power) {
             BigInteger result = BigInteger.ONE;
             for (BigInteger i = BigInteger.ZERO; i.compareTo(power) != 0; i = i.add(BigInteger.ONE)) {
+                if (Thread.currentThread().isInterrupted()){
+                    System.out.println("prematurely interrupted computation..");
+                    return BigInteger.ZERO;
+                }
                 result = result.multiply(base);
             }
             return result;
