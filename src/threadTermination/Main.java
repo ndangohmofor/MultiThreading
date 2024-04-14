@@ -4,11 +4,8 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) {
-        Thread thread = new Thread(new BlockingTask());
-        thread
-                .start();
-        thread
-                .interrupt();
+        Thread thread = new Thread(new LongComputation(new BigInteger("2"), new BigInteger("10")));
+        thread.start();
     }
 
     private static class BlockingTask implements Runnable {
@@ -35,7 +32,7 @@ public class Main {
 
         @Override
         public void run() {
-
+            System.out.println(base + "^" + power + " = " + pow(base, power));
         }
 
         private BigInteger pow(BigInteger base, BigInteger power) {
