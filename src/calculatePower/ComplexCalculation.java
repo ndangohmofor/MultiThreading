@@ -39,13 +39,11 @@ public class ComplexCalculation {
            /*
            Implement the calculation of result = base ^ power
            */
-            for (BigInteger i = BigInteger.ZERO; i.compareTo(power) != 0; i = i.add(BigInteger.ONE)) {
-                result = result.multiply(base);
-            }
+            result = power(base, power);
         }
 
         public BigInteger power(BigInteger base, BigInteger power) {
-            return base.pow(Integer.parseInt(String.valueOf(power)));
+            return base.pow(power.intValueExact());
         }
 
         public BigInteger getResult() {
