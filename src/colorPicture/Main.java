@@ -39,6 +39,10 @@ public class Main {
         int newRGH = createRGBFromColors(newRed, newGreen, newBlue);
     }
 
+    public static void setRGB(BufferedImage image, int x, int y, int rgb) {
+        image.getRaster().setDataElements(x, y, image.getColorModel().getDataElements(rgb, null));
+    }
+
     public static boolean isShadeOfGray(int red, int green, int blue) {
         return Math.abs(red - green) < 30 && Math.abs(red - blue) < 30 && Math.abs(green - blue) < 30;
     }
