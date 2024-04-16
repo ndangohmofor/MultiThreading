@@ -7,12 +7,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-    public static final String SOURCE_FILE = "../../resources/many-flowers.jpg";
+    public static final String SOURCE_FILE = "./resources/many-flowers.jpg";
     public static final String DESTINATION_FILE = "./out/many-flowers.jpg";
 
     public static void main(String[] args) throws IOException {
         BufferedImage originalImage = ImageIO.read(new File(SOURCE_FILE));
-        BufferedImage resultImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage resultImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        recolorSingleThreaded(originalImage, resultImage);
+
+        File outputFile = new File(DESTINATION_FILE);
+        ImageIO.write(resultImage, "jpg", outputFile);
     }
 
     public static void recolorSingleThreaded(BufferedImage originalImage, BufferedImage resultImage) {
@@ -20,7 +25,7 @@ public class Main {
     }
 
     public static void recolorImage(BufferedImage originalImage, BufferedImage resultImage, int leftCorner, int topCorner, int width, int height) {
-        for (int x = topCorner; x < leftCorner + width && x < originalImage.getWidth(); x++) {
+        for (int x = leftCorner; x < leftCorner + width && x < originalImage.getWidth(); x++) {
             for (int y = topCorner; y < topCorner + height && y < originalImage.getHeight(); y++) {
                 recolorPixel(originalImage, resultImage, x, y);
             }
@@ -48,7 +53,8 @@ public class Main {
             newBlue = blue;
         }
 
-        int newRGH = createRGBFromColors(newRed, newGreen, newBlue);
+        int newRGB = createRGBFromColors(newRed, newGreen, newBlue);
+        setRGB(resultImage, x, y, newRGB);
     }
 
     public static void setRGB(BufferedImage image, int x, int y, int rgb) {
