@@ -15,6 +15,14 @@ public class Main {
         BufferedImage resultImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
     }
 
+    public static void recolorImage(BufferedImage originalImage, BufferedImage resultImage, int leftCorner, int topCorner, int width, int height) {
+        for (int x = topCorner; x < leftCorner + width && x < originalImage.getWidth(); x++) {
+            for (int y = topCorner; y < topCorner + height && y < originalImage.getHeight(); y++) {
+                recolorPixel(originalImage, resultImage, x, y);
+            }
+        }
+    }
+
     public static void recolorPixel(BufferedImage originalImage, BufferedImage resultImage, int x, int y) {
         int rgb = originalImage.getRGB(x, y);
 
