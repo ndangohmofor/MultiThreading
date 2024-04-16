@@ -15,10 +15,18 @@ public class Main {
         BufferedImage originalImage = ImageIO.read(new File(SOURCE_FILE));
         BufferedImage resultImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        recolorSingleThreaded(originalImage, resultImage);
+        long startTime = System.currentTimeMillis();
+        //recolorSingleThreaded(originalImage, resultImage);
+        int numOfThreads = 6;
+        recolorMultiThreaded(originalImage, resultImage, numOfThreads);
+        long endTime = System.currentTimeMillis();
+
+        long duration = endTime - startTime;
 
         File outputFile = new File(DESTINATION_FILE);
         ImageIO.write(resultImage, "jpg", outputFile);
+
+        System.out.println("Duration of process is: " + duration);
     }
 
     public static void recolorSingleThreaded(BufferedImage originalImage, BufferedImage resultImage) {
