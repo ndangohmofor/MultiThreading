@@ -15,6 +15,10 @@ public class Main {
         BufferedImage resultImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
     }
 
+    public static void recolorSingleThreaded(BufferedImage originalImage, BufferedImage resultImage) {
+        recolorImage(originalImage, resultImage, 0, 0, originalImage.getWidth(), originalImage.getHeight());
+    }
+
     public static void recolorImage(BufferedImage originalImage, BufferedImage resultImage, int leftCorner, int topCorner, int width, int height) {
         for (int x = topCorner; x < leftCorner + width && x < originalImage.getWidth(); x++) {
             for (int y = topCorner; y < topCorner + height && y < originalImage.getHeight(); y++) {
