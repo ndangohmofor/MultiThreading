@@ -9,5 +9,6 @@ public class ThroughputHttpServer {
 
     public static void main(String[] args) throws IOException {
         String text = new String(Files.readAllBytes(Paths.get(INPUT_FILE)));
+        startServer(text);
     }
 }
