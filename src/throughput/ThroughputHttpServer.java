@@ -60,9 +60,9 @@ public class ThroughputHttpServer {
             int index = 0;
             while (index >= 0) {
                 index = text.indexOf(word, index);
-                if (index > 0) {
+                if (index >= 0) {
                     count++;
-                    index++;
+                    index += word.length(); //Move past the current word
                 }
             }
             return count;
