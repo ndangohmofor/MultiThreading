@@ -7,9 +7,9 @@ public class Main {
         DecrementingThread decrementingThread = new DecrementingThread(inventoryCounter);
 
         incrementingThread.start();
-        incrementingThread.join();
-
         decrementingThread.start();
+
+        incrementingThread.join();
         decrementingThread.join();
 
         System.out.println("We currently have " + inventoryCounter.getItems() + " items");
