@@ -10,7 +10,6 @@ public class Main {
 
         public MinMaxMetrics(List<Long> sample) {
             this.sample = sample;
-            Long.M
         }
 
         public void addSample(long newSample) {
