@@ -76,6 +76,10 @@ public class Main {
             while (true) {
                 priceContainer.getLockObject().lock();
                 try {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                    }
                     priceContainer.setBitcoinPrice(random.nextInt(20000));
                     priceContainer.setEtherPrice(random.nextInt(2000));
                     priceContainer.setLitecoinPrice(random.nextInt(500));
@@ -83,6 +87,11 @@ public class Main {
                     priceContainer.setRipplePrice(random.nextDouble());
                 } finally {
                     priceContainer.getLockObject().unlock();
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }
