@@ -1,10 +1,16 @@
 package locks.reentrantlock;
 
+import javafx.application.Application;
+
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Main {
+public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
     public static class PriceContainer {
 
         private Lock lockObject = new ReentrantLock();

@@ -31,3 +31,6 @@ bin/
 
 ### Tools ###
 /tools
+
+###build directory ###
+target/
