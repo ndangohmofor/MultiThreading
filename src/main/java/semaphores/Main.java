@@ -1,10 +1,26 @@
 package semaphores;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
+
+    public static void main(String[] args) {
+        int numberOfThreads = 5;
+        List<Thread> threads = new ArrayList<>();
+
+        Barrier barrier = new Barrier(numberOfThreads);
+        for (int i = 0; i < numberOfThreads; i++) {
+            threads.add(new Thread(new CoordinatedWorkRunner(barrier)));
+        }
+
+        for (Thread thread : threads) {
+            thread.start();
+        }
+    }
 
     public static class Barrier {
         private final int numOfWorkers;
