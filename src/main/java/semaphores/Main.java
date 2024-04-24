@@ -35,4 +35,29 @@ public class Main {
             }
         }
     }
+
+    public static class CoordinatedWorkRunner implements Runnable {
+        private final Barrier barrier;
+
+        public CoordinatedWorkRunner(Barrier barrier) {
+            this.barrier = barrier;
+        }
+
+        @Override
+        public void run() {
+            try {
+                task();
+            } catch (InterruptedException e) {
+            }
+        }
+
+        public void task() throws InterruptedException {
+            //Performing part 1
+            System.out.println(Thread.currentThread().getName() + " part 1 of the work is finished.");
+            barrier.waitForOthers();
+
+            //Performing part 2
+            System.out.println(Thread.currentThread().getName() + " part 2 of the work is finished.");
+        }
+    }
 }
