@@ -19,21 +19,26 @@ public class SimpleCountDownLatch {
         /**
          * Fill in your code
          */
-        synchronized (lock){
-            while (this.count > 0){
+        synchronized (lock) {
+            while (this.count > 0) {
                 lock.wait();
             }
         }
     }
 
     /**
-     *  Decrements the count of the latch, releasing all waiting threads when the count reaches zero.
-     *  If the current count already equals zero then nothing happens.
+     * Decrements the count of the latch, releasing all waiting threads when the count reaches zero.
+     * If the current count already equals zero then nothing happens.
      */
     public void countDown() {
         /**
          * Fill in your code
          */
+        synchronized (lock) {
+            while (this.count > 0) {
+                this.count--;
+            }
+        }
     }
 
     /**
