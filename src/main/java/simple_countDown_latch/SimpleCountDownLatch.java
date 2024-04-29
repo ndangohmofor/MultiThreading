@@ -2,6 +2,7 @@ package simple_countDown_latch;
 
 public class SimpleCountDownLatch {
     private int count;
+    private final Object lock = new Object();
 
     public SimpleCountDownLatch(int count) {
         this.count = count;
@@ -18,6 +19,11 @@ public class SimpleCountDownLatch {
         /**
          * Fill in your code
          */
+        synchronized (lock){
+            while (this.count > 0){
+                lock.wait();
+            }
+        }
     }
 
     /**
