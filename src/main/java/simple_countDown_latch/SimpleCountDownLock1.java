@@ -62,5 +62,11 @@ public class SimpleCountDownLock1 {
         /**
          * Fill in your code
          */
+        lock.lock();
+        try {
+            return this.count;
+        } finally {
+            lock.unlock();
+        }
     }
 }
