@@ -48,5 +48,8 @@ public class SimpleCountDownLatch {
         /**
          * Fill in your code
          */
+        synchronized (lock) {
+            return count;
+        }
     }
 }
