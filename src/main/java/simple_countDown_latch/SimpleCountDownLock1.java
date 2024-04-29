@@ -42,6 +42,17 @@ public class SimpleCountDownLock1 {
         /**
          * Fill in your code
          */
+        lock.lock();
+        try {
+            if (this.count > 0) {
+                this.count--;
+            }
+            if (this.count == 0) {
+                condition.signalAll();
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 
     /**
