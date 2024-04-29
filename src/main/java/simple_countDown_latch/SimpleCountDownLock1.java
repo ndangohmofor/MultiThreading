@@ -1,8 +1,13 @@
 package simple_countDown_latch;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class SimpleCountDownLock1 {
 
     private int count;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Condition condition = lock.newCondition();
 
     public SimpleCountDownLock1(int count) {
         this.count = count;
@@ -19,6 +24,14 @@ public class SimpleCountDownLock1 {
         /**
          * Fill in your code
          */
+        lock.lock();
+        try {
+            while (this.count > 0) {
+                condition.await();
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 
     /**
