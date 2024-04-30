@@ -1,5 +1,7 @@
 package thread.race.condition.atomic.integer;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
@@ -47,18 +49,18 @@ public class Main {
     }
 
     public static class InventoryCounter {
-        private int items = 0;
+        private AtomicInteger items = new AtomicInteger(0);
 
-        public synchronized void increment() {
-            items++;
+        public void increment() {
+            items.incrementAndGet();
         }
 
-        public synchronized void decrement() {
-            items--;
+        public void decrement() {
+            items.decrementAndGet();
         }
 
         public int getItems() {
-            return items;
+            return items.get();
         }
     }
 }
