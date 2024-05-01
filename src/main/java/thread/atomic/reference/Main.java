@@ -1,5 +1,8 @@
 package thread.atomic.reference;
 
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.LockSupport;
+
 public class Main {
     public static void main(String[] args) {
     }
@@ -28,6 +31,24 @@ public class Main {
 
         public int getCounter() {
             return counter;
+        }
+    }
+
+    public static class LockFreeStack<T>{
+        private AtomicReference<StackNode<T>> head = new AtomicReference<>();
+
+        public void push(T value){
+            StackNode<T> newHeadNode = new StackNode<>(value);
+             while (true){
+                 StackNode<T> currentHeadNode = head.get();
+                 newHeadNode.next = currentHeadNode;
+
+                 if (head.compareAndSet(currentHeadNode, newHeadNode)){
+                     break;
+                 } else {
+                     LockSupport.parkNanos(1);
+                 }
+             }
         }
     }
 
