@@ -34,21 +34,36 @@ public class Main {
         }
     }
 
-    public static class LockFreeStack<T>{
+    public static class LockFreeStack<T> {
         private AtomicReference<StackNode<T>> head = new AtomicReference<>();
 
-        public void push(T value){
+        public void push(T value) {
             StackNode<T> newHeadNode = new StackNode<>(value);
-             while (true){
-                 StackNode<T> currentHeadNode = head.get();
-                 newHeadNode.next = currentHeadNode;
+            while (true) {
+                StackNode<T> currentHeadNode = head.get();
+                newHeadNode.next = currentHeadNode;
 
-                 if (head.compareAndSet(currentHeadNode, newHeadNode)){
-                     break;
-                 } else {
-                     LockSupport.parkNanos(1);
-                 }
-             }
+                if (head.compareAndSet(currentHeadNode, newHeadNode)) {
+                    break;
+                } else {
+                    LockSupport.parkNanos(1);
+                }
+            }
+        }
+
+        public T pop() {
+            StackNode<T> currentHeadNode = head.get();
+            StackNode<T> newHeadNode;
+            while (currentHeadNode != null) {
+                newHeadNode = currentHeadNode.next;
+                if (head.compareAndSet(currentHeadNode, newHeadNode)) {
+                    break;
+                } else {
+                    LockSupport.parkNanos(1);
+                    currentHeadNode = head.get();
+                }
+            }
+            return currentHeadNode != null ? currentHeadNode.value : null;
         }
     }
 
