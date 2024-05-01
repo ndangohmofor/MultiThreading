@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         StandardStack<Integer> stack = new StandardStack<>();
         Random random = new Random();
 
@@ -42,6 +42,13 @@ public class Main {
             thread.setDaemon(true);
             threads.add(thread);
         }
+
+        for (Thread thread: threads){
+            thread.start();
+        }
+
+        Thread.sleep(10000);
+        System.out.println(String.format("%,d operations were performed in 10 seconds ", stack.getCounter()));
     }
 
     public static class StandardStack<T> {
