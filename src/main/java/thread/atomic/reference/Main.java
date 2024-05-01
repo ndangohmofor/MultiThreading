@@ -9,7 +9,8 @@ import java.util.concurrent.locks.LockSupport;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        StandardStack<Integer> stack = new StandardStack<>();
+//        StandardStack<Integer> stack = new StandardStack<>();
+        LockFreeStack<Integer> stack = new LockFreeStack<>();
         Random random = new Random();
 
         for (int i = 0; i < 100000; i++) {
@@ -43,7 +44,7 @@ public class Main {
             threads.add(thread);
         }
 
-        for (Thread thread: threads){
+        for (Thread thread : threads) {
             thread.start();
         }
 
