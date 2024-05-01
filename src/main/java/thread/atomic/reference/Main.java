@@ -31,6 +31,17 @@ public class Main {
             thread.setDaemon(true);
             threads.add(thread);
         }
+
+        for (int i = 0; i < poppingThreads; i++) {
+            Thread thread = new Thread(() -> {
+                while (true) {
+                    stack.pop();
+                }
+            });
+
+            thread.setDaemon(true);
+            threads.add(thread);
+        }
     }
 
     public static class StandardStack<T> {
