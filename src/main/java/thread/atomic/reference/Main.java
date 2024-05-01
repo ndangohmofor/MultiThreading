@@ -1,11 +1,36 @@
 package thread.atomic.reference;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
 
 public class Main {
     public static void main(String[] args) {
+        StandardStack<Integer> stack = new StandardStack<>();
+        Random random = new Random();
+
+        for (int i = 0; i < 100000; i++) {
+            stack.push(random.nextInt());
+        }
+
+        List<Thread> threads = new ArrayList<>();
+
+        int pushingThreads = 2;
+        int poppingThreads = 2;
+
+        for (int i = 0; i < pushingThreads; i++) {
+            Thread thread = new Thread(() -> {
+                while (true) {
+                    stack.push(random.nextInt());
+                }
+            });
+
+            thread.setDaemon(true);
+            threads.add(thread);
+        }
     }
 
     public static class StandardStack<T> {
