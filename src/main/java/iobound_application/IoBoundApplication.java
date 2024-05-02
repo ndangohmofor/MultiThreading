@@ -1,5 +1,7 @@
 package iobound_application;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -7,7 +9,7 @@ import java.util.concurrent.Executors;
 public class IoBoundApplication {
     private static final int NUMBER_OF_TASKS = 1000;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter to start");
         scanner.nextLine();
@@ -20,8 +22,9 @@ public class IoBoundApplication {
         System.out.printf("Tasks took %dms to cmmplete\n", end - start);
     }
 
-    private static void performTasks() {
-        try (ExecutorService executorService = Executors.newCachedThreadPool()) {
+    private static void performTasks() throws IOException {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        try (Closeable close = executorService::shutdown) {
 
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
                 executorService.submit(() -> blockingIoOperation());
