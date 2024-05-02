@@ -21,7 +21,7 @@ public class IoBoundApplication {
     }
 
     private static void performTasks() throws IOException {
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newFixedThreadPool(1000);
         try (Closeable close = executorService::shutdown) {
 
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
