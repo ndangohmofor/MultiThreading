@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class IoBoundApplication {
-    private static final int NUMBER_OF_TASKS = 1000;
+    private static final int NUMBER_OF_TASKS = 10_000;
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -17,9 +17,7 @@ public class IoBoundApplication {
 
         long start = System.currentTimeMillis();
         performTasks();
-        long end = System.currentTimeMillis();
-
-        System.out.printf("Tasks took %dms to cmmplete\n", end - start);
+        System.out.printf("Tasks took %dms to complete\n", System.currentTimeMillis() - start);
     }
 
     private static void performTasks() throws IOException {
