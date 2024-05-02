@@ -25,7 +25,14 @@ public class IoBoundApplication {
         try (Closeable close = executorService::shutdown) {
 
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
-                executorService.submit(() -> blockingIoOperation());
+                executorService.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int j = 0; j < 100; j++) {
+                            blockingIoOperation();
+                        }
+                    }
+                });
             }
         }
     }
@@ -34,7 +41,7 @@ public class IoBoundApplication {
     private static void blockingIoOperation() {
         System.out.println("Executing a blocking task from thread: " + Thread.currentThread().getName());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
