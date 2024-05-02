@@ -1,6 +1,8 @@
 package iobound_application;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class IoBoundApplication {
     private static final int NUMBER_OF_TASKS = 1000;
@@ -16,6 +18,15 @@ public class IoBoundApplication {
         long end = System.currentTimeMillis();
 
         System.out.printf("Tasks took %dms to cmmplete\n", end - start);
+    }
+
+    private static void performTasks() {
+        try (ExecutorService executorService = Executors.newCachedThreadPool()) {
+
+            for (int i = 0; i < NUMBER_OF_TASKS; i++) {
+                executorService.submit(() -> blockingIoOperation());
+            }
+        }
     }
 
     //Simulates a long blocking IO operation
