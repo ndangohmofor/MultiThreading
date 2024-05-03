@@ -31,7 +31,7 @@ public class IoBoundApplication {
 
     //Simulates a long blocking IO operation
     private static void blockingIoOperation() {
-        System.out.println("Executing a blocking task from thread: " + Thread.currentThread().getName());
+        System.out.println("Executing a blocking task from thread: " + Thread.currentThread());
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
