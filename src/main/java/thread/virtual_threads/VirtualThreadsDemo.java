@@ -7,12 +7,10 @@ public class VirtualThreadsDemo {
     private static final int NUMBER_OF_VIRTUAL_THREADS = 2;
 
     public static void main(String[] args) throws InterruptedException {
-        Runnable runnable = () -> System.out.println("Inside thread: " + Thread.currentThread());
-
         List<Thread> virtualThreads = new ArrayList<>();
 
         for (int i = 0; i < NUMBER_OF_VIRTUAL_THREADS; i++) {
-            Thread thread = Thread.ofVirtual().unstarted(runnable);
+            Thread thread = Thread.ofVirtual().unstarted(new BlockingTask());
             virtualThreads.add(thread);
         }
 
