@@ -24,4 +24,17 @@ public class VirtualThreadsDemo {
             thread.join();
         }
     }
+
+    public static class BlockingTask implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Inside thread: " + Thread.currentThread() + " before blocking call");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Inside thread: " + Thread.currentThread() + " after blocking call");
+        }
+    }
 }
