@@ -21,18 +21,10 @@ public class IoBoundApplication {
     }
 
     private static void performTasks() throws IOException {
-        ExecutorService executorService = Executors.newFixedThreadPool(1000);
-        try (Closeable close = executorService::shutdown) {
+        try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
 
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
-                executorService.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int j = 0; j < 100; j++) {
-                            blockingIoOperation();
-                        }
-                    }
-                });
+                executorService.submit(() -> blockingIoOperation());
             }
         }
     }
