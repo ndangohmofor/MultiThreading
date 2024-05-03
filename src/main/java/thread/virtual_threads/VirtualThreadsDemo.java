@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VirtualThreadsDemo {
-    private static final int NUMBER_OF_VIRTUAL_THREADS = 2;
+    private static final int NUMBER_OF_VIRTUAL_THREADS = 100;
 
     public static void main(String[] args) throws InterruptedException {
         List<Thread> virtualThreads = new ArrayList<>();
