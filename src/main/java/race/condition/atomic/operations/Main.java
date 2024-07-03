@@ -4,6 +4,42 @@ import java.util.Random;
 
 public class Main {
 
+    public static void main(String[] args) {
+        Metrics metrics = new Metrics();
+
+        BusinessLogic businessLogic1 = new BusinessLogic(metrics);
+        BusinessLogic businessLogic2 = new BusinessLogic(metrics);
+
+        MetricsPrinter printer = new MetricsPrinter(metrics);
+
+        businessLogic1.start();
+        businessLogic2.start();
+        printer.start();
+    }
+
+    public static class MetricsPrinter extends Thread {
+        private Metrics metrics;
+
+        public MetricsPrinter(Metrics metrics) {
+            this.metrics = metrics;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                double average = metrics.getAverage();
+                System.out.println("Current Average is: " + average);
+            }
+        }
+
+    }
+
     public static class BusinessLogic extends Thread {
         private Metrics metrics;
         private Random random = new Random();
